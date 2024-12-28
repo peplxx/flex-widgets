@@ -4,6 +4,6 @@
   },
   "scripts": {
     "prepare": "husky",
-    "lint": "echo 123"//"cd persona-app && npm run lint ."
+    "lint": "cd persona-app && npm run lint ."
   }
 }
