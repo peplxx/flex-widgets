@@ -1,6 +1,6 @@
 import useBreakpoint from "./breakpoing";
 
-import { Position } from "@/types";
+import { Position, TilePosition, TileSize } from "@/types";
 import { TILE_SIZE } from "@/config/grid";
 
 export default function Tile({
@@ -9,12 +9,8 @@ export default function Tile({
   className,
   children,
 }: {
-  size?: { width: number; height: number };
-  pos: {
-    lg: Position;
-    md: Position;
-    sm: Position;
-  };
+  size?: TileSize;
+  pos: TilePosition;
   className?: string;
   children: React.ReactNode;
 }) {

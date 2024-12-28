@@ -1,8 +1,9 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "FGrid",
-  description: "Make beautiful websites regardless of your design experience.",
+  name: "Persona",
+  description:
+    "Make beautiful personal websites regardless of your design experience.",
   navItems: [
     {
       label: "Home",
