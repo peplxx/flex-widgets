@@ -1,10 +1,8 @@
 import useBreakpoint from "./breakpoing";
 
+import { Position } from "@/types";
 import { TILE_SIZE } from "@/config/grid";
-type Position = {
-  x: number;
-  y: number;
-};
+
 export default function Tile({
   size = { width: 1, height: 1 },
   pos,
