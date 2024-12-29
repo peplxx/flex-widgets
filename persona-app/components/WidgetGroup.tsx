@@ -44,10 +44,7 @@ export default function WidgetGroup({
   };
 
   return (
-    <div>
-      {widgets.map((widget, index) => (
-        <WidgetBase key={index} {...widget} />
-      ))}
+    <>
       <TileElement
         className={className}
         position={minp}
@@ -55,6 +52,9 @@ export default function WidgetGroup({
       >
         {groupTileContent}
       </TileElement>
-    </div>
+      {widgets.map((widget, index) => (
+        <WidgetBase key={index} {...widget} />
+      ))}
+    </>
   );
 }

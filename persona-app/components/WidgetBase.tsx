@@ -19,14 +19,16 @@ export default function WidgetBase({
   const itemCentered: string = "flex justify-center items-center";
   const tileSize: TileSize = widgetSizeToTileSize(size);
 
+  const style = {
+    height: `${tileSize.height * TILE_SIZE - tileWidgetGap * 2}px`,
+    width: `${tileSize.width * TILE_SIZE - tileWidgetGap * 2}px`,
+  };
+
   return (
     <Tile pos={pos} size={tileSize}>
       <div
         className={`relative rounded-[1em] ${itemCentered} ${className}`}
-        style={{
-          height: `${tileSize.height * TILE_SIZE - tileWidgetGap * 2}px`,
-          width: `${tileSize.width * TILE_SIZE - tileWidgetGap * 2}px`,
-        }}
+        style={style}
       >
         {children}
       </div>
