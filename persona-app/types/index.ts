@@ -56,9 +56,7 @@ export function tileToScreen(
   };
 }
 export type Widget = {
-  children?: React.ReactNode;
-  className?: string;
-  pos: TilePosition;
-  size: TileSize;
-  tileWidgetGap?: number;
+  id: string;
+  position: { x: number; y: number };
+  size: { width: number; height: number };
 };

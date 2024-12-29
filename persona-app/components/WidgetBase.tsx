@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import Tile from "./Tile";
 
 import { TILE_SIZE } from "@/config/grid";
@@ -24,16 +26,18 @@ export default function WidgetBase({
   const sizing = {
     height: `${tileSize.height * TILE_SIZE - tileWidgetGap * 2}px`,
     width: `${tileSize.width * TILE_SIZE - tileWidgetGap * 2}px`,
+    transform: "scale(0.95, 1)",
+    transition: "scale 0.3s ease-in-out",
   };
 
   return (
     <Tile pos={pos} size={tileSize}>
-      <div
-        className={`relative  drop-shadow-lg rounded-[1em] ${itemCentered} ${className}`}
+      <motion.div
+        className={`relative drop-shadow-xl rounded-[1em] ${itemCentered} ${className}`}
         style={{ ...sizing, ...style }}
       >
         {children}
-      </div>
+      </motion.div>
     </Tile>
   );
 }

@@ -4,13 +4,7 @@ import React from "react";
 import DraggableWidget from "@/components/draggable/DraggableWidget";
 import GridLayout from "@/layouts/grid";
 import { TILE_SIZE } from "@/config/grid";
-import { Position } from "@/types";
-
-type Widget = {
-  id: string;
-  position: { x: number; y: number };
-  size: { width: number; height: number };
-};
+import { Position, Widget } from "@/types";
 
 type DraggedDelta = {
   id: string;
@@ -78,6 +72,14 @@ export default function PlaygroundPage() {
       size: { width: 2, height: 4 },
     },
   ]);
+  const colors: string[] = [
+    "bg-white",
+    // "bg-yellow-100",
+    // "bg-blue-100",
+    // "bg-green-100",
+    // "bg-red-100",
+    // "bg-pink-100",
+  ];
 
   const handleDragEnd = (event: DragEndEvent) => {
     const delta = updatePosition(event);
@@ -100,12 +102,13 @@ export default function PlaygroundPage() {
   };
 
   return (
-    <GridLayout className="bg-gray-400 ">
+    <GridLayout className="bg-white">
       <DndContext onDragEnd={handleDragEnd}>
-        {widgets.map((widget) => (
+        {widgets.map((widget, index) => (
           <DraggableWidget
             key={widget.id}
-            className="bg-gray-100"
+            className={`${colors[index % colors.length]}
+               border-[0.2em] border-[#1e1e1e] font-bold `} //
             id={widget.id}
             isDraggable={true}
             position={widget.position}

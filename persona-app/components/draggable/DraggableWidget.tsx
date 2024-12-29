@@ -21,8 +21,17 @@ export function Draggable({
   children: React.ReactNode;
   isDraggable: boolean;
 }): JSX.Element {
+  const styles = { cursor: isDraggable ? "grab" : "pointer" };
+
   return isDraggable ? (
-    <div ref={ref} {...listeners} {...attributes}>
+    <div
+      ref={ref}
+      {...listeners}
+      {...attributes}
+      role="button"
+      style={styles}
+      tabIndex={0}
+    >
       {children}
     </div>
   ) : (
@@ -61,6 +70,7 @@ function DraggableWidget({
   };
   const original = {
     transform: CSS.Translate.toString(transform),
+    // borderColor:"#1e1e1e"
   };
 
   return (
@@ -74,7 +84,7 @@ function DraggableWidget({
       />
 
       <WidgetBase
-        className=" text-black border-[5px] border-dashed border-opacity-60"
+        className=" text-black border-[0.4em] border-[#1e1e1e] border-dashed border-opacity-60"
         pos={{ lg: position, md: position, sm: position }}
         size={tileSize}
         tileWidgetGap={tileWidgetGap}
@@ -93,7 +103,9 @@ function DraggableWidget({
           style={original}
           tileWidgetGap={tileWidgetGap}
         >
-          {JSON.stringify(newPos)}
+          <div className="absolute bottom-0 right-0 mx-1 text-gray-600">
+            {`x: ${newPos.x} y: ${newPos.y}`}
+          </div>
         </WidgetBase>
       </Draggable>
     </>
