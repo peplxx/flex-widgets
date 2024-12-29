@@ -2,7 +2,6 @@ import useBreakpoint from "./breakpoing";
 import TileElement from "./TileElement";
 
 import { Position, TilePosition, TileSize, tileToScreen } from "@/types";
-import { TILE_SIZE } from "@/config/grid";
 
 export default function Tile({
   size = { width: 1, height: 1 },

@@ -22,7 +22,7 @@ export default function WidgetBase({
   return (
     <Tile pos={pos} size={tileSize}>
       <div
-        className={`relative rounded-2xl ${itemCentered} ${className}`}
+        className={`relative rounded-[1em] ${itemCentered} ${className}`}
         style={{
           height: `${tileSize.height * TILE_SIZE - tileWidgetGap * 2}px`,
           width: `${tileSize.width * TILE_SIZE - tileWidgetGap * 2}px`,

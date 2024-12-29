@@ -1,5 +1,6 @@
-import { TILE_SIZE } from "@/config/grid";
 import { SVGProps } from "react";
+
+import { TILE_SIZE } from "@/config/grid";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -60,4 +61,4 @@ export type Widget = {
   pos: TilePosition;
   size: TileSize;
   tileWidgetGap?: number;
-}
+};

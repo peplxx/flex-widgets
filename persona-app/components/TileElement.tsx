@@ -10,7 +10,7 @@ export default function TileElement({
   size: ScreenSize;
   position: Position;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) {
   return (
     <div
