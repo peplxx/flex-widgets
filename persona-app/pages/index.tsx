@@ -31,15 +31,22 @@ function updatePosition(event: DragEndEvent): DraggedDelta {
     delta: { x: newPos.x, y: newPos.y },
   };
 }
-function checkBounds(postition: Position): boolean {
-  const sizeX = 6;
-  const sizeY = 5;
+function checkBounds(postition: Position, breakpoint: string): boolean {
+  let size: Position = { x: 0, y: 0 };
+
+  if (breakpoint == "lg") {
+    size = { x: 8, y: 100 };
+  } else if (breakpoint == "md") {
+    size = { x: 6, y: 100 };
+  } else {
+    size = { x: 4, y: 100 };
+  }
 
   return (
     postition.x >= 0 &&
     postition.y >= 0 &&
-    postition.x < sizeX &&
-    postition.y < sizeY
+    postition.x < size.x &&
+    postition.y < size.y
   );
 }
 
@@ -52,8 +59,23 @@ export default function PlaygroundPage() {
     },
     {
       id: "2",
-      position: { x: 3, y: 3 },
+      position: { x: 2, y: 0 },
       size: { width: 1, height: 1 },
+    },
+    {
+      id: "3",
+      position: { x: 0, y: 2 },
+      size: { width: 3, height: 2 },
+    },
+    {
+      id: "4",
+      position: { x: 2, y: 1 },
+      size: { width: 1, height: 1 },
+    },
+    {
+      id: "5",
+      position: { x: 3, y: 0 },
+      size: { width: 2, height: 4 },
     },
   ]);
 
@@ -67,7 +89,7 @@ export default function PlaygroundPage() {
           y: widget.position.y + delta.delta.y,
         };
 
-        return widget.id === delta.id && checkBounds(updatedPos)
+        return widget.id === delta.id && checkBounds(updatedPos, "lg")
           ? {
               ...widget,
               position: updatedPos,
@@ -83,10 +105,11 @@ export default function PlaygroundPage() {
         {widgets.map((widget) => (
           <DraggableWidget
             key={widget.id}
+            className="bg-gray-100"
             id={widget.id}
+            isDraggable={true}
             position={widget.position}
             size={widget.size}
-            onDragEnd={() => {}}
           />
         ))}
       </DndContext>

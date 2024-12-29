@@ -1,91 +1,101 @@
-import { useDraggable } from "@dnd-kit/core";
+import { DraggableAttributes, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+
+import WidgetBase from "../WidgetBase";
 
 import { TILE_SIZE } from "@/config/grid";
 import { widgetSizeToTileSize } from "@/types";
 import { TileSize } from "@/types";
 
+export function Draggable({
+  ref,
+  attributes,
+  listeners,
+  children,
+  isDraggable,
+}: {
+  ref: any;
+  attributes: DraggableAttributes;
+  listeners: SyntheticListenerMap | undefined;
+  children: React.ReactNode;
+  isDraggable: boolean;
+}): JSX.Element {
+  return isDraggable ? (
+    <div ref={ref} {...listeners} {...attributes}>
+      {children}
+    </div>
+  ) : (
+    <>{children}</>
+  );
+}
 function DraggableWidget({
   id,
   position,
   onDragEnd,
   size,
   tileWidgetGap = 5,
+  className,
+  isDraggable = true,
 }: {
   id: string;
   position: { x: number; y: number };
-  onDragEnd: (id: string, position: { x: number; y: number }) => void;
+  onDragEnd?: (id: string, position: { x: number; y: number }) => void;
   size: { width: number; height: number };
   tileWidgetGap?: number;
+  className?: string;
+  isDraggable?: boolean;
 }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id,
   });
   const tileSize: TileSize = widgetSizeToTileSize(size);
 
-  const itemCentered: string = "flex justify-center items-center";
-
-  const draggedX = Math.round((transform?.x ?? 0) / TILE_SIZE);
-  const draggedY = Math.round((transform?.y ?? 0) / TILE_SIZE);
   const delta = {
-    x: draggedX,
-    y: draggedY,
+    x: Math.round((transform?.x ?? 0) / TILE_SIZE),
+    y: Math.round((transform?.y ?? 0) / TILE_SIZE),
   };
-  const isDragged = true;
   const newPos = {
-    x: position.x + draggedX,
-    y: position.y + draggedY,
-  };
-
-  const copyStyle = {
-    position: "absolute",
-    left: `${newPos.x * TILE_SIZE}px`,
-    top: `${newPos.y * TILE_SIZE}px`,
-    height: `${tileSize.height * TILE_SIZE}px`,
-    width: `${tileSize.width * TILE_SIZE}px`,
-    border: "1px dashed black",
-    // transition: "left 0.2s ease, top 0.2s ease", // Add transition here as well
-    opacity: 0.3,
+    x: position.x + delta.x,
+    y: position.y + delta.y,
   };
   const original = {
-    position: "absolute",
-    left: `${position.x * TILE_SIZE}px`,
-    top: `${position.y * TILE_SIZE}px`,
-    height: `${tileSize.height * TILE_SIZE}px`,
-    width: `${tileSize.width * TILE_SIZE}px`,
-    cursor: "grab",
     transform: CSS.Translate.toString(transform),
-    // transition: "left 0.2s ease, top 0.2s ease", // Add transition here as well
   };
-
-  //   console.log(newPos);
-  // console.log(transform);
 
   return (
     <>
-      {isDragged && (
-        <div
-          className={`rounded-[1em] bg-violet-100 flex justify-center items-center`}
-          role="button"
-          style={copyStyle}
-        >
-          Moving here
-        </div>
-      )}
-      <div
+      {/* */}
+      <WidgetBase
+        className={`${className} text-black bg-opacity-70  animate-pulse`}
+        pos={{ lg: newPos, md: newPos, sm: newPos }}
+        size={tileSize}
+        tileWidgetGap={tileWidgetGap}
+      />
+
+      <WidgetBase
+        className=" text-black border-[5px] border-dashed border-opacity-60"
+        pos={{ lg: position, md: position, sm: position }}
+        size={tileSize}
+        tileWidgetGap={tileWidgetGap}
+      />
+
+      <Draggable
         ref={setNodeRef}
-        {...listeners}
-        {...attributes}
-        className={`rounded-[1em] bg-violet-100  text-black ${itemCentered}`}
-        role="button"
-        style={original}
-        onMouseUp={(event) => {
-          console.log("Mouse up", newPos, event);
-          onDragEnd(id, newPos);
-        }}
+        attributes={attributes}
+        isDraggable={isDraggable}
+        listeners={listeners}
       >
-        {JSON.stringify(newPos)}
-      </div>
+        <WidgetBase
+          className={`${className} text-black`}
+          pos={{ lg: position, md: position, sm: position }}
+          size={tileSize}
+          style={original}
+          tileWidgetGap={tileWidgetGap}
+        >
+          {JSON.stringify(newPos)}
+        </WidgetBase>
+      </Draggable>
     </>
   );
 }

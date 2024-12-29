@@ -8,18 +8,20 @@ export default function WidgetBase({
   children,
   pos,
   size,
+  style,
   tileWidgetGap = 5,
 }: {
   children?: React.ReactNode;
   className?: string;
   pos: TilePosition;
   size: TileSize;
+  style?: object;
   tileWidgetGap?: number;
 }) {
   const itemCentered: string = "flex justify-center items-center";
   const tileSize: TileSize = widgetSizeToTileSize(size);
 
-  const style = {
+  const sizing = {
     height: `${tileSize.height * TILE_SIZE - tileWidgetGap * 2}px`,
     width: `${tileSize.width * TILE_SIZE - tileWidgetGap * 2}px`,
   };
@@ -27,8 +29,8 @@ export default function WidgetBase({
   return (
     <Tile pos={pos} size={tileSize}>
       <div
-        className={`relative rounded-[1em] ${itemCentered} ${className}`}
-        style={style}
+        className={`relative  drop-shadow-lg rounded-[1em] ${itemCentered} ${className}`}
+        style={{ ...sizing, ...style }}
       >
         {children}
       </div>
