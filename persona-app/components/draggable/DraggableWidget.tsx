@@ -1,4 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 
 import { TILE_SIZE } from "@/config/grid";
 import { widgetSizeToTileSize } from "@/types";
@@ -30,7 +31,7 @@ function DraggableWidget({
     x: draggedX,
     y: draggedY,
   };
-  const isDragged = delta.x != 0 || delta.y != 0;
+  const isDragged = true;
   const newPos = {
     x: position.x + draggedX,
     y: position.y + draggedY,
@@ -43,7 +44,7 @@ function DraggableWidget({
     height: `${tileSize.height * TILE_SIZE}px`,
     width: `${tileSize.width * TILE_SIZE}px`,
     border: "1px dashed black",
-    transition: "left 0.2s ease, top 0.2s ease", // Add transition here as well
+    // transition: "left 0.2s ease, top 0.2s ease", // Add transition here as well
     opacity: 0.3,
   };
   const original = {
@@ -53,14 +54,24 @@ function DraggableWidget({
     height: `${tileSize.height * TILE_SIZE}px`,
     width: `${tileSize.width * TILE_SIZE}px`,
     cursor: "grab",
-    transition: "left 0.2s ease, top 0.2s ease", // Add transition here as well
+    transform: CSS.Translate.toString(transform),
+    // transition: "left 0.2s ease, top 0.2s ease", // Add transition here as well
   };
 
   //   console.log(newPos);
-  //   console.log(transform);
+  // console.log(transform);
 
   return (
     <>
+      {isDragged && (
+        <div
+          className={`rounded-[1em] bg-violet-100 flex justify-center items-center`}
+          role="button"
+          style={copyStyle}
+        >
+          Moving here
+        </div>
+      )}
       <div
         ref={setNodeRef}
         {...listeners}
@@ -68,24 +79,13 @@ function DraggableWidget({
         className={`rounded-[1em] bg-violet-100  text-black ${itemCentered}`}
         role="button"
         style={original}
-        tabIndex={0}
         onMouseUp={(event) => {
           console.log("Mouse up", newPos, event);
           onDragEnd(id, newPos);
         }}
       >
-        {JSON.stringify(position)}
+        {JSON.stringify(newPos)}
       </div>
-      {isDragged && (
-        <div
-          className={`rounded-[1em] bg-violet-100 flex justify-center items-center`}
-          role="button"
-          style={copyStyle}
-          tabIndex={0}
-        >
-          Moving here
-        </div>
-      )}
     </>
   );
 }
