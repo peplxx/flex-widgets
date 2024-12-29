@@ -4,6 +4,7 @@ import React from "react";
 import DraggableWidget from "@/components/draggable/DraggableWidget";
 import GridLayout from "@/layouts/grid";
 import { TILE_SIZE } from "@/config/grid";
+import { Position } from "@/types";
 
 type Widget = {
   id: string;
@@ -30,6 +31,17 @@ function updatePosition(event: DragEndEvent): DraggedDelta {
     delta: { x: newPos.x, y: newPos.y },
   };
 }
+function checkBounds(postition: Position): boolean {
+  const sizeX = 6;
+  const sizeY = 5;
+
+  return (
+    postition.x >= 0 &&
+    postition.y >= 0 &&
+    postition.x < sizeX &&
+    postition.y < sizeY
+  );
+}
 
 export default function PlaygroundPage() {
   const [widgets, setWidgets] = React.useState<Widget[]>([
@@ -38,23 +50,30 @@ export default function PlaygroundPage() {
       position: { x: 0, y: 0 },
       size: { width: 2, height: 2 },
     },
+    {
+      id: "2",
+      position: { x: 3, y: 3 },
+      size: { width: 1, height: 1 },
+    },
   ]);
 
   const handleDragEnd = (event: DragEndEvent) => {
     const delta = updatePosition(event);
 
     setWidgets((prevWidgets) =>
-      prevWidgets.map((widget) =>
-        widget.id === delta.id && widget.position.x + delta.delta.x >= 0
+      prevWidgets.map((widget) => {
+        const updatedPos = {
+          x: widget.position.x + delta.delta.x,
+          y: widget.position.y + delta.delta.y,
+        };
+
+        return widget.id === delta.id && checkBounds(updatedPos)
           ? {
               ...widget,
-              position: {
-                x: widget.position.x + delta.delta.x,
-                y: widget.position.y + delta.delta.y,
-              },
+              position: updatedPos,
             }
-          : widget,
-      ),
+          : widget;
+      }),
     );
   };
 
