@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import WidgetComponent from "./Widget";
+import WidgetComponent from "./WidgetComponent";
 
 import { TILE_SIZE } from "@/config/grid";
 import { Position, Size, Widget } from "@/types";

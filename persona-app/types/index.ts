@@ -1,4 +1,5 @@
 import { SVGProps } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import { TILE_SIZE } from "@/config/grid";
 
@@ -55,13 +56,25 @@ export function tileToScreen(
     height: Math.ceil(widgetSize.height * factor),
   };
 }
-export type Widget = {
+export class Widget {
   id: string;
   position: Position;
   size: { width: number; height: number };
   tileWidgetGap?: number;
   className?: string;
-};
+
+  constructor(
+    position: Position,
+    size: { width: number; height: number },
+    options?: { tileWidgetGap?: number; className?: string },
+  ) {
+    this.id = uuidv4().slice(-6);
+    this.position = position;
+    this.size = size;
+    this.tileWidgetGap = options?.tileWidgetGap;
+    this.className = options?.className;
+  }
+}
 
 export type Size = {
   height: number;

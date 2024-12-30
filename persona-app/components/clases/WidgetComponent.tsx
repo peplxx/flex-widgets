@@ -1,10 +1,12 @@
+import dynamic from "next/dynamic";
+
 import DraggableWidget from "../draggable/DraggableWidget";
 
 import { Grid } from "./Grid";
 
 import { Widget } from "@/types";
 
-export default function WidgetComponent({
+function ActualWidgetComponent({
   widget,
   parent,
 }: {
@@ -23,3 +25,8 @@ export default function WidgetComponent({
     />
   );
 }
+const WidgetComponent = dynamic(() => Promise.resolve(ActualWidgetComponent), {
+  ssr: false, // Disables server-side rendering
+});
+
+export default WidgetComponent;

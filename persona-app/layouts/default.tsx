@@ -15,7 +15,9 @@ export default function DefaultLayout({
       style={style}
     >
       <Head />
-      <main className={`container h-auto mt-16 mx-auto justify-center flex `}>
+      <main
+        className={`container h-auto mt-16 mx-auto justify-center flex-col items-center`}
+      >
         {children}
       </main>
     </div>

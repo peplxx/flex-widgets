@@ -5,43 +5,66 @@ import DefaultLayout from "@/layouts/default";
 import { Widget } from "@/types";
 import { TILE_SIZE } from "@/config/grid";
 
-const widgets: Widget[] = [
-  {
-    id: "1",
-    position: { x: 0, y: 0 },
-    size: { width: 2, height: 2 },
-    className: "ring-2 ring-neutral-600 bg-white",
-  },
-  {
-    id: "2",
-    position: { x: 2, y: 0 },
-    size: { width: 1, height: 1 },
-    tileWidgetGap: 20,
-    className: "bg-red-500",
-  },
-  {
-    id: "3",
-    position: { x: 0, y: 2 },
-    size: { width: 3, height: 2 },
-    className: "ring-2 ring-neutral-600 bg-white",
-  },
-  {
-    id: "4",
-    position: { x: 2, y: 1 },
-    size: { width: 1, height: 1 },
-    tileWidgetGap: 20,
-    className: "bg-red-500",
-  },
-  {
-    id: "5",
-    position: { x: 3, y: 0 },
-    size: { width: 2, height: 4 },
-    className: "ring-2 ring-neutral-600 bg-white",
-  },
+let widgets: Widget[] = [
+  new Widget(
+    { x: 0, y: 0 },
+    { width: 2, height: 2 },
+    { className: "ring-2 ring-neutral-600 bg-white" },
+  ),
+  new Widget(
+    { x: 2, y: 0 },
+    { width: 1, height: 1 },
+    { className: "bg-red-500", tileWidgetGap: 20 },
+  ),
+  new Widget(
+    { x: 0, y: 2 },
+    { width: 3, height: 2 },
+    { className: "ring-2 ring-neutral-600 bg-white" },
+  ),
+  new Widget(
+    { x: 2, y: 1 },
+    { width: 1, height: 1 },
+    { className: "bg-red-500", tileWidgetGap: 20 },
+  ),
+  new Widget(
+    { x: 3, y: 0 },
+    { width: 2, height: 4 },
+    { className: "ring-2 ring-neutral-600 bg-white" },
+  ),
+];
+let widgets2: Widget[] = [
+  new Widget(
+    { x: 0, y: 0 },
+    { width: 2, height: 2 },
+    { className: "ring-2 ring-neutral-600 bg-white" },
+  ),
+  new Widget(
+    { x: 2, y: 0 },
+    { width: 1, height: 1 },
+    { className: "bg-red-500", tileWidgetGap: 20 },
+  ),
+  new Widget(
+    { x: 0, y: 2 },
+    { width: 3, height: 2 },
+    { className: "ring-2 ring-neutral-600 bg-white" },
+  ),
+  new Widget(
+    { x: 2, y: 1 },
+    { width: 1, height: 1 },
+    { className: "bg-red-500", tileWidgetGap: 20 },
+  ),
+  new Widget(
+    { x: 3, y: 0 },
+    { width: 2, height: 4 },
+    { className: "ring-2 ring-neutral-600 bg-white" },
+  ),
 ];
 
-let main: Grid = new Grid("main", { height: 8, width: 5 }, widgets);
-let grids = [main];
+let main: Grid = new Grid("main", { height: 4, width: 5 }, widgets);
+let main2: Grid = new Grid("main2", { height: 4, width: 5 }, widgets2);
+let grids = [main, main2];
+
+console.log(grids);
 
 type DraggedDelta = {
   id: string;
@@ -80,6 +103,7 @@ export default function GridPage() {
     <DefaultLayout className="bg-white">
       <DndContext onDragEnd={handleDragEnd}>
         <GridComponent grid={main} />
+        <GridComponent grid={main2} />
       </DndContext>
     </DefaultLayout>
   );
