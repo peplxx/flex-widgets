@@ -26,14 +26,12 @@ export default function WidgetBase({
   const sizing = {
     height: `${tileSize.height * TILE_SIZE - tileWidgetGap * 2}px`,
     width: `${tileSize.width * TILE_SIZE - tileWidgetGap * 2}px`,
-    transform: "scale(0.95, 1)",
-    transition: "scale 0.3s ease-in-out",
   };
 
   return (
     <Tile pos={pos} size={tileSize}>
       <motion.div
-        className={`relative drop-shadow-xl rounded-[1em] ${itemCentered} ${className}`}
+        className={`relative drop-shadow-xl hover:brightness-105 rounded-[1em] ${itemCentered} ${className}`}
         style={{ ...sizing, ...style }}
       >
         {children}

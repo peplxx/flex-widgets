@@ -84,7 +84,7 @@ function DraggableWidget({
       />
 
       <WidgetBase
-        className=" text-black border-[0.4em] border-[#1e1e1e] border-dashed border-opacity-60"
+        className=" text-black border-[0.2em] border-[#1e1e1e] border-dashed border-opacity-60"
         pos={{ lg: position, md: position, sm: position }}
         size={tileSize}
         tileWidgetGap={tileWidgetGap}
@@ -103,8 +103,13 @@ function DraggableWidget({
           style={original}
           tileWidgetGap={tileWidgetGap}
         >
-          <div className="absolute bottom-0 right-0 mx-1 text-gray-600">
+          <div className="absolute bottom-0 text-xs right-0 mr-2 mb-1 text-neutral-950">
+            {`id: ${id}`}
+            <br />
             {`x: ${newPos.x} y: ${newPos.y}`}
+            <br />
+            {`w: ${size.width} h: ${size.height}`}
+            <br />
           </div>
         </WidgetBase>
       </Draggable>

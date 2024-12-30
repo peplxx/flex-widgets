@@ -17,7 +17,12 @@ module.exports = {
       backgroundImage: {
         "grid-pattern":
           "linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 2px), linear-gradient(0deg, rgba(0,0,0,0.1) 1px, transparent 2px)",
-      },
+          "grid-dots": `
+              radial-gradient(circle, rgba(0,0,0,0.5) 2px, transparent 1px),
+              linear-gradient(90deg, transparent 1px, transparent 1px),
+              linear-gradient(0deg, transparent 1px, transparent 1px)
+            `,
+        },
       backgroundSize: {
         "grid-lg": "125px 125px",
       },

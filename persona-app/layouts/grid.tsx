@@ -1,5 +1,7 @@
 import { Head } from "./head";
 
+import Sidebar from "@/components/sidebar";
+
 export default function GridLayout({
   style,
   className,
@@ -17,12 +19,10 @@ export default function GridLayout({
       style={style}
     >
       <Head />
-      {/* <Sidebar >
-        <h1>Доступные виджеты</h1>
-        </Sidebar> */}
+      <Sidebar />
 
       <main
-        className={`container  h-full mx-auto ${layoutSizes} flex-grow bg-grid-pattern bg-grid-lg mt-16 relative `}
+        className={`container  h-full mx-auto ${layoutSizes} flex-grow bg-grid-dots bg-grid-lg mt-16 relative `}
       >
         {children}
       </main>

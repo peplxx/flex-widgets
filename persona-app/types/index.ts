@@ -57,6 +57,13 @@ export function tileToScreen(
 }
 export type Widget = {
   id: string;
-  position: { x: number; y: number };
+  position: Position;
   size: { width: number; height: number };
+  tileWidgetGap?: number;
+  className?: string;
+};
+
+export type Size = {
+  height: number;
+  width: number;
 };
