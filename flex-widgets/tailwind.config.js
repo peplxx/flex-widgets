@@ -24,7 +24,7 @@ export default {
         `,
       },
       backgroundSize: {
-        "grid-lg": "125px 125px",
+        "grid-lg": "70px 70px",
       },
       backgroundPosition: {
         centered: "center",

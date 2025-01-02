@@ -20,19 +20,22 @@ const accent_widget = "bg-red-500 hover:bg-red-600 text-white";
 const widgets: Widget[] = [
   // Library Header
   new Widget(
-    { x: 1, y: 0 },
-    { width: 3, height: 2 },
-    { className: white_widget },
+    { x: 2, y: 0 },
+    { width: 6, height: 4 },
+    { className: white_widget,
+
+     },
     <LibraryStatsWidget />,
   ),
 
   // Quick Action Buttons
   new Widget(
-    { x: 4, y: 0 },
-    { width: 1, height: 1 },
+    { x: 8, y: 6 },
+    { width: 2, height: 2 },
     {
       className: accent_widget,
       tileWidgetGap: 16,
+
     },
     (
       <a
@@ -47,11 +50,12 @@ const widgets: Widget[] = [
     ),
   ),
   new Widget(
-    { x: 5, y: 0 },
-    { width: 1, height: 1 },
+    { x: 10, y: 6 },
+    { width: 2, height: 2 },
     {
       className: accent_widget,
       tileWidgetGap: 16,
+
     },
     (
       <div className="flex flex-col items-center justify-center h-full">
@@ -63,24 +67,28 @@ const widgets: Widget[] = [
 
   // Features Section
   new Widget(
-    { x: 4, y: 1 },
-    { width: 2, height: 3 },
-    { className: white_widget },
+    { x: 8, y: 0 },
+    { width: 4, height: 6 },
+    { className: white_widget,
+
+     },
     <FeaturesWidget />,
   ),
 
   // Code Preview
   new Widget(
-    { x: 1, y: 2 },
-    { width: 3, height: 2 },
-    { className: white_widget },
+    { x: 2, y: 4 },
+    { width: 6, height: 4 },
+    { className: white_widget,
+
+     },
     <CodePreviewWidget />,
   ),
 
   // Get Started Button
   new Widget(
-    { x: 0, y: 4 },
-    { width: 7, height: 1 },
+    { x: 2, y: 8 },
+    { width: 10, height: 2 },
     {
       className:
         "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-sm",
@@ -96,7 +104,7 @@ const widgets: Widget[] = [
   ),
 ];
 
-const main: Grid = new Grid("main", { height: 5, width: 7 }, widgets);
+const main: Grid = new Grid("main", { height: 10, width: 14 }, widgets);
 const grids = [main];
 
 function handleDragEnd(event: DragEndEvent) {

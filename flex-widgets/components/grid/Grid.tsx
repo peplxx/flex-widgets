@@ -141,7 +141,7 @@ export function GridComponent({
       grid.removeListener(updateWidgets);
     };
   }, [grid]);
-  const component_width = Math.min(width_sizing[breakpoint], grid.size.width);
+  const component_width = Math.min(grid.size.width, grid.size.width);
   const sizing: React.CSSProperties = {
     minHeight: `${grid.size.height * TILE_SIZE}px`,
     minWidth: `${component_width * TILE_SIZE}px`,

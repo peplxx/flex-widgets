@@ -1,6 +1,5 @@
 ![Project preview](./preview/preview.png)
 
-[Life demo](https://flex-widgets.vercel.app)
 
 Flex Widgets is a collection of lightweight React components for building modern dashboards and data visualizations. Built with TypeScript and designed for maximum flexibility and ease of use.
 
