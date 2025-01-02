@@ -5,7 +5,7 @@ import {
   CodePreviewWidget,
   FeaturesWidget,
   LibraryStatsWidget,
-} from "./widgets";
+} from "@/components/widgets/preview";
 
 import DefaultLayout from "@/layouts/default";
 import { Widget } from "@/types";
