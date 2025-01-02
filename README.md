@@ -12,6 +12,7 @@ Flex Widgets is a collection of lightweight React components for building modern
 > ⚠️ **Note:** This project is currently under development.
 
 ## Demo
+[demo.webm](https://github.com/user-attachments/assets/9c62bb03-2d0b-4eb9-bb8a-9a42b75899e4)
 
 
 
