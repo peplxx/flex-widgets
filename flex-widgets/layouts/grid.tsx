@@ -1,7 +1,5 @@
 import { Head } from "./head";
 
-import Sidebar from "@/components/sidebar";
-
 export default function GridLayout({
   style,
   className,
@@ -19,8 +17,6 @@ export default function GridLayout({
       style={style}
     >
       <Head />
-      <Sidebar />
-
       <main
         className={`container  h-full mx-auto ${layoutSizes} flex-grow bg-grid-dots bg-grid-lg mt-16 relative `}
       >

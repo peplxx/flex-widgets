@@ -16,7 +16,7 @@ export default function DefaultLayout({
     >
       <Head />
       <main
-        className={`container h-auto mt-16 mx-auto flex flex-row `}
+        className={`container mt-20 mx-auto flex justify-center items-center`}
       >
         {children}
       </main>

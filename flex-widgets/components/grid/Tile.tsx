@@ -1,7 +1,7 @@
-import useBreakpoint from "./breakpoing";
-import TileElement from "./TileElement";
+import useBreakpoint from "../breakpoint";
 
-import { Position, TilePosition, TileSize, tileToScreen } from "@/types";
+import { TILE_SIZE } from "@/config/grid";
+import { Position, TilePosition, TileSize } from "@/types";
 
 export default function Tile({
   size = { width: 1, height: 1 },
@@ -21,12 +21,16 @@ export default function Tile({
   };
 
   return (
-    <TileElement
+    <div
       className={`absolute flex justify-center items-center ${className}`}
-      position={position}
-      size={tileToScreen(size)}
+      style={{
+        width: `${size.width * TILE_SIZE}px`,
+        height: `${size.height * TILE_SIZE}px`,
+        left: `${position.x * TILE_SIZE}px`,
+        top: `${position.y * TILE_SIZE}px`,
+      }}
     >
       {children}
-    </TileElement>
+    </div>
   );
 }

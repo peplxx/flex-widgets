@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import Tile from "./Tile";
+import Tile from "../Tile";
 
 import { TILE_SIZE } from "@/config/grid";
 import { TilePosition, TileSize, widgetSizeToTileSize } from "@/types";
@@ -31,7 +31,7 @@ export default function WidgetBase({
   return (
     <Tile pos={pos} size={tileSize}>
       <motion.div
-        className={`relative drop-shadow-xl hover:brightness-105 rounded-[1em] ${itemCentered} ${className}`}
+        className={`relative drop-shadow-xl rounded-[1em] ${itemCentered} ${className}`}
         style={{ ...sizing, ...style }}
       >
         {children}

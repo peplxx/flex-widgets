@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 
-import WidgetComponent from "./WidgetComponent";
+import Droppable from "../dnd/Droppable";
+import useBreakpoint from "../breakpoint";
+
+import WidgetComponent from "./widget/Widget";
 
 import { TILE_SIZE } from "@/config/grid";
 import { Position, Size, Widget } from "@/types";
@@ -50,9 +53,17 @@ export class Grid {
     let widget = this.widgets.get(widgetID);
 
     if (widget) {
-      widget.position.x += position.x;
-      widget.position.y += position.y;
-      this.notifyListeners();
+      const newPosition = {
+        x: widget.position.x + position.x,
+        y: widget.position.y + position.y,
+      };
+
+      const newWidget = { ...widget, position: newPosition };
+
+      if (this.ableToMove(newWidget)) {
+        widget.position = newPosition;
+        this.notifyListeners();
+      }
     }
   }
 
@@ -65,7 +76,42 @@ export class Grid {
   private notifyListeners(): void {
     this.listeners.forEach((listener) => listener());
   }
+  private checkBounds(widget: Widget): boolean {
+    return (
+      widget.position.x >= 0 &&
+      widget.position.y >= 0 &&
+      widget.position.x + widget.size.width <= this.size.width &&
+      widget.position.y + widget.size.height <= this.size.height
+    );
+  }
+
+  public ableToMove(widget: Widget): boolean {
+    const withinBounds =
+      widget.position.x >= 0 &&
+      widget.position.y >= 0 &&
+      widget.position.x + widget.size.width <= this.size.width &&
+      widget.position.y + widget.size.height <= this.size.height;
+
+    if (!withinBounds) return false;
+
+    for (const existingWidget of Array.from(this.widgets.values())) {
+      if (
+        existingWidget.id !== widget.id &&
+        this.isColliding(widget, existingWidget)
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
+
+const width_sizing = {
+  md: 6,
+  sm: 4,
+  lg: 10,
+};
 
 export function GridComponent({
   grid,
@@ -79,6 +125,8 @@ export function GridComponent({
   const [widgets, setWidgets] = useState<Map<string, Widget>>(
     grid.getWidgets(),
   );
+
+  const breakpoint = useBreakpoint() as keyof typeof width_sizing;
   const [showGridLines, setShowGridLines] = useState(grid.isGridLinesVisible());
 
   useEffect(() => {
@@ -93,25 +141,27 @@ export function GridComponent({
       grid.removeListener(updateWidgets);
     };
   }, [grid]);
-
+  const component_width = Math.min(width_sizing[breakpoint], grid.size.width);
   const sizing: React.CSSProperties = {
     minHeight: `${grid.size.height * TILE_SIZE}px`,
-    minWidth: `${grid.size.width * TILE_SIZE}px`,
+    minWidth: `${component_width * TILE_SIZE}px`,
     maxHeight: `${grid.size.height * TILE_SIZE}px`,
-    maxWidth: `${grid.size.width * TILE_SIZE}px`,
+    maxWidth: `${component_width * TILE_SIZE}px`,
   };
   const gridLines: string = showGridLines ? "bg-grid-dots bg-grid-lg" : "";
 
   return (
-    <div
-      className={`container relative ${gridLines} ${className}`}
-      style={{ ...sizing, ...style }}
-    >
-      <>
-        {Array.from(widgets.values()).map((widget, index) => (
-          <WidgetComponent key={index} parent={grid} widget={widget} />
-        ))}
-      </>
-    </div>
+    <>
+      <div
+        className={`container relative ${gridLines} ${className}`}
+        style={{ ...sizing, ...style }}
+      >
+        <Droppable id={grid.id} style={sizing}>
+          {Array.from(widgets.values()).map((widget, index) => (
+            <WidgetComponent key={index} parent={grid} widget={widget} />
+          ))}
+        </Droppable>
+      </div>
+    </>
   );
 }
