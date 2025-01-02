@@ -6,7 +6,6 @@ import {
   FeaturesWidget,
   LibraryStatsWidget,
 } from "@/components/widgets/preview";
-
 import DefaultLayout from "@/layouts/default";
 import { Widget } from "@/types";
 import { updatePosition } from "@/components/dnd/context";
