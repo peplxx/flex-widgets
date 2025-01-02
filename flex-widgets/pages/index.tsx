@@ -1,64 +1,103 @@
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
-import { LayoutDashboard, Activity } from "lucide-react";
+import { ArrowRight, Package, Github } from "lucide-react";
 
-import { Grid, GridComponent } from "@/components/grid/Grid";
+import {
+  CodePreviewWidget,
+  FeaturesWidget,
+  LibraryStatsWidget,
+} from "@/components/widgets/preview";
 import DefaultLayout from "@/layouts/default";
 import { Widget } from "@/types";
-import {
-  SystemStatusWidget,
-  TeamActivityWidget,
-} from "@/components/widgets/example";
-import { VisitorsWidget } from "@/components/widgets/example";
 import { updatePosition } from "@/components/dnd/context";
+import { GridComponent } from "@/components/grid/Grid";
+import { Grid } from "@/components/grid/Grid";
+import { siteConfig } from "@/config/site";
 
-const white_widget = "ring-2 ring-neutral-600 bg-white hover:ring-neutral-800";
-let widgets: Widget[] = [
+const white_widget =
+  "ring-2 ring-neutral-600 bg-white hover:ring-neutral-800 shadow-sm";
+const accent_widget = "bg-red-500 hover:bg-red-600 text-white";
+
+const widgets: Widget[] = [
+  // Library Header
   new Widget(
     { x: 1, y: 0 },
-    { width: 2, height: 2 },
-    {
-      className: white_widget,
-    },
-    <VisitorsWidget />,
+    { width: 3, height: 2 },
+    { className: white_widget },
+    <LibraryStatsWidget />,
   ),
+
+  // Quick Action Buttons
   new Widget(
-    { x: 3, y: 0 },
+    { x: 4, y: 0 },
     { width: 1, height: 1 },
     {
-      className: "bg-red-500 hover:bg-red-600",
-      tileWidgetGap: 20,
+      className: accent_widget,
+      tileWidgetGap: 16,
     },
-    <LayoutDashboard size={32} />,
+    (
+      <a
+        className="flex flex-col items-center justify-center h-full"
+        href={siteConfig.links.github}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <Github size={24} />
+        <span className="text-sm mt-2">GitHub</span>
+      </a>
+    ),
   ),
+  new Widget(
+    { x: 5, y: 0 },
+    { width: 1, height: 1 },
+    {
+      className: accent_widget,
+      tileWidgetGap: 16,
+    },
+    (
+      <div className="flex flex-col items-center justify-center h-full">
+        <Package size={24} />
+        <span className="text-sm mt-2">NPM</span>
+      </div>
+    ),
+  ),
+
+  // Features Section
+  new Widget(
+    { x: 4, y: 1 },
+    { width: 2, height: 3 },
+    { className: white_widget },
+    <FeaturesWidget />,
+  ),
+
+  // Code Preview
   new Widget(
     { x: 1, y: 2 },
     { width: 3, height: 2 },
-    {
-      className: white_widget,
-    },
-    <TeamActivityWidget />,
+    { className: white_widget },
+    <CodePreviewWidget />,
   ),
+
+  // Get Started Button
   new Widget(
-    { x: 3, y: 1 },
-    { width: 1, height: 1 },
+    { x: 0, y: 4 },
+    { width: 7, height: 1 },
     {
-      className: white_widget,
-      tileWidgetGap: 20,
+      className:
+        "bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white shadow-sm",
     },
-    <Activity size={32} />,
-  ),
-  new Widget(
-    { x: 4, y: 0 },
-    { width: 2, height: 4 },
-    {
-      className: white_widget,
-    },
-    <SystemStatusWidget />,
+    (
+      <div className="flex items-center justify-center gap-3 h-full">
+        <span className="text-lg font-semibold">
+          Get Started with Flex Widgets
+        </span>
+        <ArrowRight size={20} />
+      </div>
+    ),
   ),
 ];
 
-let main: Grid = new Grid("main", { height: 6, width: 7 }, widgets);
-let grids = [main];
+const main: Grid = new Grid("main", { height: 5, width: 7 }, widgets);
+const grids = [main];
 
 function handleDragEnd(event: DragEndEvent) {
   const delta = updatePosition(event);
@@ -68,9 +107,9 @@ function handleDragEnd(event: DragEndEvent) {
   });
 }
 
-export default function MainPage() {
+export default function RepoPage() {
   return (
-    <DefaultLayout className="bg-white ">
+    <DefaultLayout className="bg-gray-100 min-h-screen p-6">
       <DndContext onDragEnd={handleDragEnd}>
         <GridComponent grid={main} />
       </DndContext>
